@@ -4,12 +4,20 @@ import nodeNotifier from 'node-notifier'
 import errorhandler from 'errorhandler'
 import compression from 'compression'
 import cors from 'cors'
+import morgan from 'morgan'
+import mongoose from 'mongoose'
+import config from 'config'
+import blueBird from 'bluebird'
 
 import routes from 'routes'
 
 const app = express()
+mongoose.connect(config.Api.database)
+mongoose.Promise = blueBird
+app.set('superSecret', config.Api.secret)
+app.use(morgan('dev'))
 
-if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === undefined) {
+if (process.env.NODE_ENV === 'development') {
 	app.use(errorhandler({log: errorNotification}))
 }
 
