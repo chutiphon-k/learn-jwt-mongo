@@ -14,7 +14,7 @@ router.post('/auth', (req, res) => {
 			res.json({ success: false, message: 'Authentication failed. User not found.' })
 		} else if (user) {
 			if (user.password !== req.body.password) {
-				res.json({ success: false, message: 'Authentication failed. Wrong password' })
+				res.json({ success: false, message: 'Authentication failed. Wrong password.' })
 			} else {
 				let token = jwt.sign(user, app.get('superSecret'), {
 					expiresIn: '1d'
