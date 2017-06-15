@@ -14,8 +14,6 @@ import routes from 'routes'
 const app = express()
 mongoose.connect(config.Api.database)
 mongoose.Promise = blueBird
-app.set('superSecret', config.Api.secret)
-app.use(morgan('dev'))
 
 if (process.env.NODE_ENV === 'development') {
 	app.use(errorhandler({log: errorNotification}))
@@ -36,6 +34,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(compression())
 app.use(cors())
+app.use(morgan('dev'))
 app.use('/', routes)
 
 export default app
