@@ -14,10 +14,10 @@ router.post('/auth', (req, res) => {
 			res.json({ success: false, message: 'Authentication failed. User not found.' })
 		} else if (user) {
 			if (user.password !== req.body.password) {
-				res.json({ success: false, message: 'Authentication failed. Wrong password.' })
+				res.json({ success: false, message: 'Authentication failed. Wrong password' })
 			} else {
 				let token = jwt.sign(user, app.get('superSecret'), {
-					expiresIn: 60 * 60 * 24
+					expiresIn: '1d'
 				})
 
 				res.json({
@@ -64,7 +64,6 @@ router.get('/setup', (req, res) => {
 		res.json({ success: true })
 	})
 })
-
 
 router.get('/', (req, res) => {
 	res.json({ message: 'Welcome to API' })
